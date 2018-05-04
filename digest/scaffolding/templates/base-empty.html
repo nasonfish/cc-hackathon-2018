@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %} &mdash; {{ config['SCHOOL'] }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/branding/static/css/base.css">
+</head>
+<body>
+    {% block body %}{% endblock %}
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="/branding/static/js/typeahead.bundle.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script>{% block js %}{% endblock %}</script>
+</body>
+</html>

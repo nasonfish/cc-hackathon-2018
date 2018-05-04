@@ -1,0 +1,22 @@
+{% extends "base-scaffolding.html" %}
+{% block title %}Subscriptions{% endblock %}
+{% block bodyheader %}Subscriptions{% endblock %}
+{% block content %}
+{% if content %}
+    {% for c in content %}
+        {% if loop.index % 3 == 1 %}
+            <table class="content-table">
+                <tr>
+        {% endif %}
+                    <td>
+                        {{ c.get_print(show_cls=True) |safe }}
+                    </td>
+                    {% if loop.index % 3 == 0 or loop.last %}
+                </tr>
+            </table>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No notes found from your subscriptions. Try subscribing to classes <a href="{{ url_for('class.list') }}">here</a>!</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base-empty.html" %}
+{% block body %}
+<div id="header" class="page-header">
+    <h1>{{ config['SCHOOL'] }} <small>Note sharing program</small></h1>
+    {% if user %}
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" {% if request.url_rule.endpoint=='index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
+        <li role="presentation" {% if request.url_rule.endpoint=='class.list' %}class="active"{% endif %}><a href="{{ url_for('class.list') }}">Classes</a></li>
+    </ul>
+</div>
+<div id="breadcrumbs">
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        {% block breadcrumbs %}{% endblock %}
+    </ol>
+    {% endif %}
+</div>
+<div id="content" class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">{% block title %}{% endblock %}</h2>
+    </div>
+    <div class="panel-body">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

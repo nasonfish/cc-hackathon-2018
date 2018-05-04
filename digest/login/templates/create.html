@@ -1,0 +1,15 @@
+{% extends "base-scaffolding.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<p>This web application is in place to allow students to share notes and other important information relating to classes.</p>
+<p>It should hopefully make students more involved in helping others in classwork, and help all students perform better in the classroom.</p>
+<form action="{{ url_for('create') }}" method="post">
+    <label for="input-username">Username: </label>
+    <input id="input-username" name="username" type="text" placeholder="username"/>
+    <label for="input-email">E-Mail: </label>
+    <input id="input-email" name="email" type="email" placeholder="email"/>
+    <label for="input-password">Password: </label>
+    <input id="input-password" name="password" type="password" placeholder="password"/>
+    <button type="submit">Sign Up!</button>
+</form>
+{% endblock %}
