@@ -1,8 +1,8 @@
-from school import app
-from school.login.user import get_session_user
-from school.util import render_template_or_json
-from school.content import Content
-from school.containers import Class, UserSubscription
+from digest import app
+from digest.login.user import get_session_user
+from digest.util import render_template_or_json
+from digest.content import Content
+from digest.containers import Class, UserSubscription
 from flask import redirect, url_for
 
 @app.route('/')

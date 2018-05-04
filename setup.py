@@ -2,7 +2,6 @@
 from digest import app
 
 from digest.scaffolding import scaffolding
-from digest.cls import cls
 from digest.login import login
 from digest.account import account
 

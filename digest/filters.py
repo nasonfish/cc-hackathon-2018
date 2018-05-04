@@ -1,5 +1,5 @@
 from json import dumps
-from school import app
+from digest import app
 from markdown import markdown
 
 

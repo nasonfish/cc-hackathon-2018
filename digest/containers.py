@@ -1,5 +1,5 @@
-from school import app, db
-from school.login.user import get_session_user
+from digest import app, db
+from digest.login.user import get_session_user
 
 class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,4 +1,4 @@
-from school import app, db
+from digest import app, db
 from flask import render_template, url_for
 import time
 import json

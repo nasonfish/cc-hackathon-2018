@@ -11,12 +11,12 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
-import school.filters
-import school.user
-import school.login.session
-import school.containers
-import school.content
-import school.views
+import digest.filters
+import digest.user
+import digest.login.session
+import digest.containers
+import digest.content
+import digest.views
 
 
 app.add_url_rule('/static/<path:filename>',

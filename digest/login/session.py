@@ -16,9 +16,9 @@ from the use of this software.
 import blinker
 import time
 
-from school import app, db
-from school.login.user import Session, get_session_user, login_required
-from school.user import Student, User
+from digest import app, db
+from digest.login.user import Session, get_session_user, login_required
+from digest.user import Student, User
 from flask import session, redirect, url_for, escape, request, jsonify, escape, render_template
 
 login_signal = blinker.Signal('A signal sent when the user logs in')

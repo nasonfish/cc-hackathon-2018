@@ -13,7 +13,7 @@ implied.  In no event shall the authors be liable for any damages arising
 from the use of this software.
 """
 
-from school import db, mail, app
+from digest import db, mail, app
 from flask import render_template, request
 
 import json

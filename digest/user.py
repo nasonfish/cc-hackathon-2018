@@ -1,6 +1,6 @@
 
-from school import db
-from school.login.user import UserSkeleton
+from digest import db
+from digest.login.user import UserSkeleton
 # comment boxes
 
 class User(UserSkeleton, db.Model):

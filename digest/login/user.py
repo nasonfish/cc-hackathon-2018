@@ -6,8 +6,8 @@ import string
 import codecs
 from functools import wraps
 
-from school import db
-from school.login.pbkdf2 import pbkdf2_hex
+from digest import db
+from digest.login.pbkdf2 import pbkdf2_hex
 from flask import session, request, redirect, url_for, abort
 
 
