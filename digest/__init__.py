@@ -12,7 +12,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 import digest.filters
-import digest.user
 import digest.login.session
 import digest.containers
 import digest.content

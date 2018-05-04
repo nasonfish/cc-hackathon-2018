@@ -5,7 +5,7 @@
     {% if user %}
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" {% if request.url_rule.endpoint=='index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
-        <li role="presentation" {% if request.url_rule.endpoint=='class.list' %}class="active"{% endif %}><a href="{{ url_for('class.list') }}">Classes</a></li>
+        <li role="presentation" {% if request.url_rule.endpoint=='class.list' %}class="active"{% endif %}><a href="">Classes</a></li>
     </ul>
 </div>
 <div id="breadcrumbs">

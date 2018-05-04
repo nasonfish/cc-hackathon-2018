@@ -17,8 +17,7 @@ import blinker
 import time
 
 from digest import app, db
-from digest.login.user import Session, get_session_user, login_required
-from digest.user import Student, User
+from digest.login.user import Session, get_session_user, login_required, User
 from flask import session, redirect, url_for, escape, request, jsonify, escape, render_template
 
 login_signal = blinker.Signal('A signal sent when the user logs in')
@@ -98,7 +97,7 @@ def create():
                 return render_template('create.html', error='No email provided')
             if escape(email) != email or '@' not in email:
                 return render_template('create.html', error='E-mail address is malformed')
-            user = Student(username, email, password)
+            user = User(username, email, password)
         except:
             return render_template('create.html', error='Username is already taken')
             

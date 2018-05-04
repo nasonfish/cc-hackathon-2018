@@ -11,18 +11,21 @@ from digest.login.pbkdf2 import pbkdf2_hex
 from flask import session, request, redirect, url_for, abort
 
 
-class UserSkeleton():
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), unique=True)
     email = db.Column(db.String(64))
     password = db.Column(db.String(255))
     salt = db.Column(db.String(32))
     enabled = db.Column(db.Boolean, default=1)
+    is_admin = db.Column(db.Boolean, default=0)
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.assign_password(password)
+        db.session.add(self)
+        db.session.commit()
 
     def _get_pbkdf2_hash(self, password):
         return pbkdf2_hex(password, self.salt, 1000, 64, hashlib.sha512)
@@ -52,22 +55,6 @@ class UserSkeleton():
 
         db.session.add(self)
         db.session.commit()
-
-"""
-Copyright (c) 2012, 2013, 2014 Centarra Networks, Inc.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice, this permission notice and all necessary source code
-to recompile the software are included or otherwise available in all
-distributions.
-
-This software is provided 'as is' and without any warranty, express or
-implied.  In no event shall the authors be liable for any damages arising
-from the use of this software.
-"""
-
-
 
 class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -117,16 +104,6 @@ def is_api_session():
     return True if request.authorization else False
 
 def get_session_user():
-#    if request.authorization:
-#        auth = request.authorization
-#
-#        user = User.query.filter_by(username=auth.username).first()
-#        if not user:
-#            return None
-#        if user.validate_password(auth.password) != True and auth.password != user.api_key:
-#            return None
-#        return user
-
     sess = get_session()
     if sess:
         return sess.user
