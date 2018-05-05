@@ -1,8 +1,8 @@
 from digest.org import org
 from digest.content import Content
-from digest.containers import Organization
+from digest.containers import Organization, OrganizationPermission
 from digest.util import render_template_or_json
-from digest.login.user import get_session_user, login_required
+from digest.login.user import get_session_user, login_required, admin_required
 from flask import request, redirect, url_for, flash, send_from_directory, get_flashed_messages, jsonify
 from markdown import markdown
 from digest import app, db, allowed_file
@@ -52,9 +52,9 @@ def unsubscribe(id):
     cls.unsubscribe(get_session_user())
     return redirect(url_for('.list'))
 
-@login_required
-@org.route("/<id>/edit/<content_id>")
-def edit(id, content_id):
-    cls = Organization.query.get_or_404(id)
-    content = Organization.query.get_or_404(content_id)
-    return render_template_or_json("edit.html", cls=cls, content=content)
+@admin_required
+@org.route("/create", methods=['POST'])
+def create():
+    org = Organization(request.form['name'])
+    OrganizationPermission(get_session_user(), org, is_admin=True)
+    return redirect(url_for('.view', id=org.id))

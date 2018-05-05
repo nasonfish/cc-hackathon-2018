@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h1 class="panel-title">{% block icon %}{% endblock %}
             {% if show_cls %}
-                <a href="{{ url_for('class.view', id=content.cls_id) }}" style="text-decoration: underline;">{{ content.cls.name }}</a><br/>
+                <a href="{{ url_for('org.view', id=content.org_id) }}" style="text-decoration: underline;">{{ content.org.name }}</a><br/>
             {% endif %}
            {{ content.title }}
         </h1>
