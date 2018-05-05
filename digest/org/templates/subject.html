@@ -1,0 +1,8 @@
+{% extends "class/view.html" %}
+{% block title %}{{ super() }} - Subject {{ subject.name }}{% endblock %}
+{% block breadcrumbs %}
+        <li><a href="{{ url_for('class.list') }}">Class</a></li>
+        <li><a href="{{ url_for('class.view', id=cls.id) }}">{{ cls.name }}</a></li>
+        <li><a href="{{ url_for('class.unit', id=cls.id, unit_id=subject.unit.id) }}">{{ subject.unit.name }}</a></li>
+        <li class="active">{{ subject.name }}</li>
+{% endblock %}

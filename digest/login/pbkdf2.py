@@ -58,7 +58,7 @@ def pbkdf2_hex(data, salt, iterations=1000, keylen=24, hashfunc=None):
 
 
 def pbkdf2_bin(data, salt, iterations=1000, keylen=24, hashfunc=None):
-    """Returns a binary digest for the PBKDF2 hash algorithm of `data`
+    """Returns a binary org for the PBKDF2 hash algorithm of `data`
     with the given `salt`.  It iterates `iterations` time and produces a
     key of `keylen` bytes.  By default SHA-1 is used as hash function,
     a different hashlib `hashfunc` can be provided.

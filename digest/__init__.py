@@ -15,6 +15,7 @@ import digest.filters
 import digest.login.session
 import digest.containers
 import digest.content
+import digest.org
 import digest.views
 
 

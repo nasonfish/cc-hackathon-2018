@@ -1,0 +1,31 @@
+{% extends "base-scaffolding.html" %}
+{% block title %}Class List{% endblock %}
+{% block breadcrumbs %}
+        <li class="active">Class</li>
+{% endblock %}
+{% block content %}
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>Organization</th>
+        <th>Subscribe</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for class in classes %}
+    <tr>
+        <td><a href="{{ url_for('class.view', id=class.id) }}">{{ class.name }}</a></td>
+        {% if class.is_subscribed() %}
+            <td><a href="{{ url_for('class.unsubscribe', id=class.id) }}">
+                <button type="button" class="btn btn-danger">Unsubscribe</button>
+            </a></td>
+        {% else %}
+            <td><a href="{{ url_for('class.subscribe', id=class.id) }}">
+                <button type="button" class="btn btn-success">Subscribe</button>
+            </a></td>
+        {% endif %}
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

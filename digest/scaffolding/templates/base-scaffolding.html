@@ -1,19 +1,12 @@
 {% extends "base-empty.html" %}
 {% block body %}
 <div id="header" class="page-header">
-    <h1>hjlhjklhljk</h1>
-    {% if user %}
+    <h1>Colorado College Students' Digest</h1>
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" {% if request.url_rule.endpoint=='index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
-        <li role="presentation" {% if request.url_rule.endpoint=='class.list' %}class="active"{% endif %}><a href="">Classes</a></li>
-    </ul>
-</div>
-<div id="breadcrumbs">
-    <ol class="breadcrumb">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li role="presentation" {% if request.url_rule.endpoint=='org.list' %}class="active"{% endif %}><a href="{{ url_for('org.list') }}">Campus Organizations</a></li>
         {% block breadcrumbs %}{% endblock %}
-    </ol>
-    {% endif %}
+    </ul>
 </div>
 <div id="content" class="panel panel-default">
     <div class="panel-heading">

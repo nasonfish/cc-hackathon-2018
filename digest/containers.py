@@ -12,16 +12,16 @@ class Organization(db.Model):
         db.session.commit()
 
     def subscribe(self, user):
-        UserSubscription(user, self)
+        OrganizationSubscription(user, self)
 
     def unsubscribe(self, user):
-        UserSubscription.query.filter_by(cls_id=self.id, user_id=user.id).delete()
+        OrganizationSubscription.query.filter_by(cls_id=self.id, user_id=user.id).delete()
         db.session.commit()
 
     def is_subscribed(self, user=False):
         if not user:
             user = get_session_user()
-        return UserSubscription.query.filter_by(cls_id=self.id, user_id=user.id).first() is not None
+        return OrganizationSubscription.query.filter_by(cls_id=self.id, user_id=user.id).first() is not None
 
 class OrganizationPermission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,7 +41,7 @@ class OrganizationPermission(db.Model):
         db.session.add(self)
         db.session.commit()
 
-class ClubSubscription(db.Model):
+class OrganizationSubscription(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship('User', backref="subscriptions", foreign_keys=[user_id])
@@ -55,3 +55,4 @@ class ClubSubscription(db.Model):
         self.org = org
         db.session.add(self)
         db.session.commit()
+
