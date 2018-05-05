@@ -56,6 +56,11 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def make_admin(self):
+        self.is_admin = True
+        db.session.add(self)
+        db.session.commit()
+
 class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 

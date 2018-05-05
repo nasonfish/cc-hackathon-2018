@@ -1,0 +1,19 @@
+<div class="content content-{{ content.type }} panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">{% block icon %}{% endblock %}
+            {% if show_cls %}
+                <a href="{{ url_for('class.view', id=content.cls_id) }}" style="text-decoration: underline;">{{ content.cls.name }}</a><br/>
+            {% endif %}
+           {{ content.title }}
+        </h1>
+    </div>
+    <div class="panel-body">
+        <p style="text-decoration: underline;" onclick="$('#content-{{ content.id }}').animate({ height: 'toggle', width: 'toggle' })"><em>{{ content.description }}</em></p>
+        <div id="content-{{ content.id }}">
+            {% block information %}
+            {% endblock %}
+        </div>
+        <hr/>
+        <p>by <strong>{{ content.uploader.username }}</strong></p>
+    </div>
+</div>

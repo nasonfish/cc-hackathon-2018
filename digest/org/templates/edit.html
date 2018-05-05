@@ -13,30 +13,11 @@
         <th class="span8">Description</th>
         <th class="span2">Actions</th>
     </tr>
-{% for card in notecard.cards %}
-    <tr>
-        <td data-raw="{{ card.text }}" class="span3 notecard-text card-{{ card.id }}">{{ card.text }}</td>
-        <td data-raw="{{ card.value }}" class="span6 notecard-value card-{{ card.id }}">{{ card.value |markdown |safe }}</td>
-        <td><a href="{{ url_for('class.notecard_card_delete', id=notecard.cls.id, card_id=notecard.id, card_card_id=card.id) }}"
-               class="span3 btn btn-danger">Delete Card</a>
-            <button class="btn btn-info edit-card" data-id="{{ card.id }}">Edit card</button>
-        </td>
-    </tr>
-{% endfor %}
 </table>
-<form method="post" action="{{ url_for('.notecard_submit', id=notecard.cls.id, card_id=notecard.id) }}">
-    <label for="content-text">Name: </label>
-    <input id="content-text" name="text"/>
-    <label for="content-value">Value: </label>
-    <textarea id="content-value" name="value" cols="50" rows="15"></textarea>
-    <button type="submit">Submit</button>
-</form>
 {% endblock %}
 {% block breadcrumbs %}
-        <li><a href="{{ url_for('class.list') }}">Class</a></li>
-        <li><a href="{{ url_for('class.view', id=notecard.cls_id) }}">{{ notecard.cls.name }}</a></li>
-        <li><a href="{{ url_for('class.unit', id=notecard.cls_id, unit_id=notecard.unit_id) }}">{{ notecard.unit.name }}</a></li>
-        <li><a href="{{ url_for('class.subject', id=notecard.cls_id, subject_id=notecard.subject_id) }}">{{ notecard.subject.name }}</a></li>
+        <li><a href="{{ url_for('org.list') }}">Class</a></li>
+        <li><a href="{{ url_for('org.view', id=notecard.cls_id) }}">{{ notecard.cls.name }}</a></li>
         <li class="active">{{ notecard.title }}</li>
 {% endblock %}
 {% block js %}

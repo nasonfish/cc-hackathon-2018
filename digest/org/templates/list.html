@@ -12,15 +12,15 @@
     </tr>
     </thead>
     <tbody>
-{% for class in classes %}
+{% for org in orgs %}
     <tr>
-        <td><a href="{{ url_for('class.view', id=class.id) }}">{{ class.name }}</a></td>
-        {% if class.is_subscribed() %}
-            <td><a href="{{ url_for('class.unsubscribe', id=class.id) }}">
+        <td><a href="{{ url_for('org.view', id=org.id) }}">{{ org.name }}</a></td>
+        {% if org.is_subscribed() %}
+            <td><a href="{{ url_for('org.unsubscribe', id=org.id) }}">
                 <button type="button" class="btn btn-danger">Unsubscribe</button>
             </a></td>
         {% else %}
-            <td><a href="{{ url_for('class.subscribe', id=class.id) }}">
+            <td><a href="{{ url_for('org.subscribe', id=org.id) }}">
                 <button type="button" class="btn btn-success">Subscribe</button>
             </a></td>
         {% endif %}

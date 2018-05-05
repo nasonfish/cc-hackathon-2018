@@ -8,7 +8,6 @@ class Content(db.Model):
     title = db.Column(db.String(255))
     type = db.Column(db.String(16))
     pinned = db.Column(db.Boolean)
-    description = db.Column(db.String(255))
     timestamp = db.Column(db.Integer)
     org_id = db.Column(db.Integer, db.ForeignKey("organization.id"))
     org = db.relationship('Organization', backref="content", foreign_keys=[org_id])
@@ -20,9 +19,8 @@ class Content(db.Model):
         'polymorphic_on': type
     }
 
-    def __init__(self, title, description, org, uploader, text, pinned=False, timestamp=False):
+    def __init__(self, title, org, uploader, text, pinned=False, timestamp=False):
         self.title = title
-        self.description = description
         if not timestamp:
             timestamp = int(time.time())
         self.timestamp = timestamp

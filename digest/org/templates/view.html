@@ -1,11 +1,20 @@
 {% extends "base-scaffolding.html" %}
-{% block title %}Class {{ cls.name }} ({{ cls.teacher.nice_name }}){% endblock %}
+{% block title %}Organization {{ org.name }}{% endblock %}
 {% block breadcrumbs %}
-        <li><a href="{{ url_for('class.list') }}">Class</a></li>
-        <li class="active">{{ cls.name }}</li>
+        <li><a href="{{ url_for('.list') }}">Organization</a></li>
+        <li class="active">{{ org.name }}</li>
 {% endblock %}
 {% block content %}
 <div id="content-area">
+    {% if org.has_permission() %}
+    <form id="content-submit" enctype="multipart/form-data" method="post" action="{{ url_for('.submit', id=org.id) }}">
+        <label for="content-title">Title: </label>
+        <input id="content-title" name="title"/>
+        <label for="content-text">Text: </label>
+        <textarea id="content-text" name="text"></textarea>
+        <input type="submit">Submit</form>
+    </form>
+    {% endif %}
 {% for c in content %}
     {% if loop.index % 3 == 1 %}
         <table class="content-table">
@@ -20,112 +29,4 @@
     {% endif %}
 {% endfor %}
 </div>
-<label for="post_type">Post Type: </label>
-<select id="post_type">
-    <option value="null"></option>
-</select>
-<form id="content-submit" enctype="multipart/form-data" method="post" style="display: none;">
-    <label for="content-title">Title: </label>
-    <input id="content-title" name="title"/>
-    <label for="content-description">Description: </label>
-    <input id="content-description" name="description"/>
-    <label for="content-unit">Unit: </label>
-    <input id="content-unit" name="unit" class="typeahead" type="text"/>
-    <label id="content-subject-label" for="content-subject">Subject: </label>
-    <input id="content-subject" name="subject" class="typeahead" type="text"/>
-</form>
-{% endblock %}
-{% block js %}
-var substringMatcher = function(strs, elem) {
-    return function findMatches(q, cb) {
-        var matches, substrRegex;
-
-        // an array that will be populated with substring matches
-        matches = [];
-
-        // regex used to determine if a string contains the substring `q`
-        substrRegex = new RegExp(q, 'i');
-
-        // iterate through the pool of strings and for any string that
-        // contains the substring `q`, add it to the `matches` array
-        var set = [];
-        if(elem == false){
-            set = strs;
-        } else {
-            set = strs[elem.val()];
-        }
-        $.each(set, function(i, str) {
-            if (substrRegex.test(str)) {
-                // the typeahead jQuery plugin expects suggestions to a
-                // JavaScript object, refer to typeahead docs for more info
-                matches.push({ value: str });
-            }
-        });
-
-        cb(matches);
-    };
-};
-
-
-var units = [{% for unit in units %}'{{unit.name}}', {% endfor %}];
-var subjects = {{ subjects |mapout("name") |json |safe }};
-$("#content-unit").typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 0
-},
-{
-    name: 'units',
-    displayKey: 'value',
-    source: substringMatcher(units, false)
-});
-$("#content-subject").typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 0
-},
-{
-    name: 'subjects',
-    displayKey: 'value',
-    source: substringMatcher(subjects, $("#content-unit"))
-});
-$("#content-subject").on("focus change keyup paste", function(){
-    if($("#content-unit").val() == ""){
-        $("#content-unit").focus();
-    }
-});
-var data = { {% for i in storage %}"{{i.title()}}": {"data": {{ storage[i].json_args() |safe }},
-        "action": "{{ storage[i].submit(cls.id) |safe }}" }, {% endfor %} };
-for(var i in data){
-    var option = document.createElement("option");
-    option.value = i;
-    option.innerHTML = i;
-    $("#post_type").append(option);
-}
-var submit = document.createElement("button");
-submit.setAttribute("type", "submit");
-submit.innerHTML = "Submit";
-submit.setAttribute("class", "btn btn-success");
-submit.setAttribute("style", "margin-top: 20px;");
-$("#post_type").bind("change", function(){
-    $(".form_added").remove();
-    var type = $(this).val();
-    if(type == "null"){ $("#content-submit").hide(); return; }
-    $("#content-submit").show().attr("action", data[type]['action']);
-    for(var j in data[type]["data"]){
-        for(var k in data[type]["data"][j]){
-            var elem = document.createElement(k);
-            elem.setAttribute("class", "form_added");
-            for(var l in data[type]["data"][j][k]){
-                if(l == "innerHTML"){ elem.innerHTML = data[type]["data"][j][k][l]; } else {
-                    elem.setAttribute(l, data[type]["data"][j][k][l]);
-                }
-            }
-            $("#content-submit").append(elem);
-        }
-    }
-
-    $("#content-submit").append(submit);
-});
-
 {% endblock %}

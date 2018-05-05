@@ -114,7 +114,7 @@ def reset_ui():
     if request.method == 'POST':
         username = request.form.get('username', '').strip().rstrip()
         email = request.form.get('email', '').strip().rstrip()
-        from school.user import User
+        from digest.login.user import User
         user = User.query.filter_by(username=username).filter_by(email=email).first()
 
         if not user:

@@ -22,25 +22,19 @@ def render_view(template, org, _content=None, _units=None, _subjects=None, **kwa
 @org.route("/")
 @org.route("/list")
 def list():
-    return render_template_or_json("list.html", classes=Organization.query)
+    return render_template_or_json("list.html", orgs=Organization.query)
 
 @login_required
 @org.route("/<id>")
 def view(id):
-    cls = Organization.query.get_or_404(id)
-    return render_view("view.html", cls)
-
-def new_content(id, storage, cls=None, **kwargs):
-    if not cls:
-        cls = Organization.query.get_or_404(id)
-    unit = None
-    subject = None
-    return storage(request.form['title'], request.form['description'], cls, get_session_user(), unit=unit, subject=subject, **kwargs)
+    org = Organization.query.get_or_404(id)
+    return render_view("view.html", org=org)
 
 @login_required
-@org.route("/<id>/submit/text", methods=['POST'])
-def new_text_content(id):
-    new_content(id, Content, text=request.form['text'])
+@org.route("/<id>/submit", methods=['POST'])
+def submit(id):
+    org = Organization.query.get_or_404(id)
+    Content(request.form['title'], org, get_session_user(), request.form['text'])
     return redirect(url_for('.view', id=id))
 
 

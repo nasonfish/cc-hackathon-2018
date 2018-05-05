@@ -5,7 +5,7 @@ class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
 
-    def __init__(self, name, teacher):
+    def __init__(self, name):
         self.name = name
 
         db.session.add(self)
@@ -15,13 +15,22 @@ class Organization(db.Model):
         OrganizationSubscription(user, self)
 
     def unsubscribe(self, user):
-        OrganizationSubscription.query.filter_by(cls_id=self.id, user_id=user.id).delete()
+        OrganizationSubscription.query.filter_by(org_id=self.id, user_id=user.id).delete()
         db.session.commit()
 
     def is_subscribed(self, user=False):
         if not user:
             user = get_session_user()
-        return OrganizationSubscription.query.filter_by(cls_id=self.id, user_id=user.id).first() is not None
+        if not user:
+            return False
+        return OrganizationSubscription.query.filter_by(org_id=self.id, user_id=user.id).first() is not None
+
+    def has_permission(self, user=False):
+        if not user:
+            user = get_session_user()
+        if not user:
+            return False
+        return OrganizationPermission.query.filter_by(user_id=user.id, org_id=self.id).first() is not None
 
 class OrganizationPermission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,4 +64,3 @@ class OrganizationSubscription(db.Model):
         self.org = org
         db.session.add(self)
         db.session.commit()
-

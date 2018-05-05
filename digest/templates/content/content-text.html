@@ -1,0 +1,5 @@
+{% extends "content/content.html" %}
+{% block information %}
+    {{ content.text |markdown |safe }}
+{% endblock %}
+{% block icon %}<span class="glyphicon glyphicon-align-left"></span>{% endblock %}
