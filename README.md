@@ -10,3 +10,6 @@ This creates a much more attractive alternative which may, ideally, be productio
 
 This project is created in Python using Flask and SQLAlchemy. Our user account system hashes passwords, salted, with pbkdf2. This entire application is based loosely on a previous project I created, [bhsnotes.com](http://bhsnotes.com/) which was a node-sharing web application I created in high school. (You'll notice similarities in the design, I'm sure...)
 
+## How to access
+
+Visit [the website](http://danielbarnes.me:60001)
