@@ -2,6 +2,7 @@ from digest import app, db
 from flask import render_template, url_for
 import time
 import json
+import datetime
 
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,6 +45,9 @@ class Content(db.Model):
     def json_args(cls):
         return json.dumps(cls.args())
 
+
+    def nice_date(self):
+        return datetime.datetime.fromtimestamp(self.timestamp).strftime('%A, %B %d')
 
     def get_print(self, show_cls=False, show_tags=True):
         return render_template("content/content-text.html", content=self, show_cls=show_cls, show_tags=show_tags)

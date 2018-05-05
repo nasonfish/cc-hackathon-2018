@@ -18,42 +18,42 @@ def render_view(template, org, _content=None, _units=None, _subjects=None, **kwa
     return render_template_or_json(template, org=org, content=_content,
                                    units=_units, subjects=_subjects, **kwargs)
 
-@login_required
 @org.route("/")
 @org.route("/list")
+@login_required
 def list():
     return render_template_or_json("list.html", orgs=Organization.query)
 
-@login_required
 @org.route("/<id>")
+@login_required
 def view(id):
     org = Organization.query.get_or_404(id)
     return render_view("view.html", org=org)
 
-@login_required
 @org.route("/<id>/submit", methods=['POST'])
+@login_required
 def submit(id):
     org = Organization.query.get_or_404(id)
     Content(request.form['title'], org, get_session_user(), request.form['text'])
     return redirect(url_for('.view', id=id))
 
 
-@login_required
 @org.route("/<id>/subscribe")
+@login_required
 def subscribe(id):
     org = Organization.query.get_or_404(id)
     org.subscribe(get_session_user())
     return redirect(url_for('.list'))
 
-@login_required
 @org.route("/<id>/unsubscribe")
+@login_required
 def unsubscribe(id):
     cls = Organization.query.get_or_404(id)
     cls.unsubscribe(get_session_user())
     return redirect(url_for('.list'))
 
-@admin_required
 @org.route("/create", methods=['POST'])
+@admin_required
 def create():
     org = Organization(request.form['name'])
     OrganizationPermission(get_session_user(), org, is_admin=True)

@@ -26,14 +26,16 @@
         {% endif %}
     </tr>
 {% endfor %}
+{% if user.is_admin %}
     <form method="post" action="{{ url_for('org.create') }}">
     <tr>
         <td><input type="text" name="name"></td>
             <td>
-                <input type="submit" class="btn btn-success">Create</input>
+                <input type="submit" class="btn btn-success"/>
             </td>
     </tr>
     </form>
+{% endif %}
 </tbody>
 </table>
 {% endblock %}

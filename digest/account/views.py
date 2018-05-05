@@ -3,8 +3,8 @@ from digest.login.user import login_required, get_session_user
 from digest.util import render_template_or_json
 from flask import request, flash
 
-@login_required
 @account.route('/', methods=['GET', 'POST'])
+@login_required
 def account():
     if request.method == 'POST':
         user = get_session_user()

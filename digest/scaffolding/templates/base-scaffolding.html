@@ -2,11 +2,15 @@
 {% block body %}
 <div id="header" class="page-header">
     <h1>Colorado College Students' Digest</h1>
-    <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" {% if request.url_rule.endpoint=='index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
-        <li role="presentation" {% if request.url_rule.endpoint=='org.list' %}class="active"{% endif %}><a href="{{ url_for('org.list') }}">Campus Organizations</a></li>
-        {% block breadcrumbs %}{% endblock %}
-    </ul>
+    <div id="breadcrumbs">
+    <ol class="breadcrumb">
+        <li {% if request.url_rule.endpoint=='index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
+        <li {% if request.url_rule.endpoint=='org.list' %}class="active"{% endif %}><a href="{{ url_for('org.list') }}">Campus Organizations</a></li>
+            {% if not user %}
+            <li style="display: inline-block; float: right;"><a href="/login">Log In</a></li>
+            <li style="display: inline-block; float: right; white-space: nowrap; margin-right: 5px;" class="nobefore "><a href="/create">Create Account</a></li>
+            {% endif %}
+    </ol>
 </div>
 <div id="content" class="panel panel-default">
     <div class="panel-heading">
